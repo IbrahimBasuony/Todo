@@ -1,5 +1,6 @@
 <?php 
 require_once 'inc/header.php';
+require_once 'inc/connection.php';
 ?>
 <body>
     
@@ -23,20 +24,29 @@ require_once 'inc/header.php';
             <!-- all -->
             <div class="col-md-3 "> 
                 <h4 class="text-white">All Notes</h4>
+            <?php 
+            $stm=$conn->query("select * from todo where `status`='todo' ORDER BY id desc");
+            
+             ?>
 
                 
                 <div class="m-2  py-3">
                     <div class="show-to-do">
-
+                <?php
+                 if($stm->rowcount()<1){ ?>
                             <div class="item">
                                 <div class="alert-info text-center ">
                                  empty to do
                                 </div>
                             </div>
-                    
+                    <?php } ?>
+
+                <?php
+               while($todo=$stm->fetch(PDO::FETCH_ASSOC)){ ;
+                ?>
                         <div class="alert alert-info p-2">
-                                <h4 >title</h4>
-                                <h5>created_At</h5>
+                                <h4 ><?php echo $todo['title'] ;  ?></h4>
+                                <h5><?php echo $todo['created_at'] ;  ?></h5>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="#"class="btn btn-info p-1 text-white" >edit</a>
                                    
@@ -44,6 +54,8 @@ require_once 'inc/header.php';
                                 </div>
                             
                         </div>
+                <?php };  ?>
+                
                     </div>
                 </div>
 
@@ -53,27 +65,35 @@ require_once 'inc/header.php';
             <div class="col-md-3 ">
             
                 <h4 class="text-white">Doing</h4>
-
+            <?php 
+            $stm=$conn->query("select * from todo where `status`='doing' ORDER BY id desc");
+            
+             ?>
                 
                 <div class="m-2 py-3">
                     <div class="show-to-do">
-
-                   
+                    <?php
+                    if($stm->rowcount()<1) : ?>
                             <div class="item">
                                 <div class="alert-success text-center ">
                                  empty to do
                                 </div>
                             </div>
-                    
+                    <?php endif ; ?> 
+
+                    <?php
+                    while($todo=$stm->fetch(PDO::FETCH_ASSOC)) : ;
+                    ?>
                         <div class="alert alert-success p-2">
-                                <h4 >title</h4>
-                                <h5>created_at</h5>
+                                <h4 ><?php echo $todo['title'] ;  ?></h4>
+                                <h5><?php echo $todo['created_at'] ;  ?>t</h5>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a></a>
                                     <a href="#"class="btn btn-success p-1 text-white" >Done</a>
                                 </div>
                             
                         </div>
+                        <?php  endwhile ; ?>
                     </div>
                 </div>
             
@@ -82,23 +102,31 @@ require_once 'inc/header.php';
             <!-- done -->
             <div class="col-md-3">
                 <h4 class="text-white">Done</h4>
+            <?php 
+            $stm=$conn->query("select * from todo where `status`='done' ORDER BY id desc");
+            
+            
+             ?>
 
                 <div class="m-2 py-3">
                     <div class="show-to-do">
-
+                   <?php if($stm->rowcount()<1) : ?>
                             <div class="item">
                                 <div class="alert-warning text-center ">
                                  empty to do
                                 </div>
                             </div>
-                    
+                            <?php endif; ?>
+                  <?php  while($todo=$stm->fetch(PDO::FETCH_ASSOC)) :  ?>
                         <div class="alert alert-warning p-2">
                                 <a href="#" onclick="confirm('are your sure')"  class="remove-to-do text-dark d-flex justify-content-end " ><i class="fa fa-close" style="font-size:16px;"></i></a>                                                                
-                                <h4 >title</h4>
-                               <h5>created_At</h5>
+                                <h4 ><?php echo $todo['title'] ; ?></h4>
+                               <h5><?php echo $todo['created_at'] ; ?></h5>
                                
                             
                         </div>
+
+                    <?php endwhile ; ?>
                     </div>
                 </div>
             </div>
