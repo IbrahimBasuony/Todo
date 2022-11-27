@@ -12,7 +12,27 @@ if($request->hasPost("submit")){
     $validation->validate("title", $title , ["Required" , "Str"] );
     $errors=$validation->getError();
 
-    var_dump($errors);
+    if(empty($errors)){
+
+      $str=$conn->prepare("insert into todo (`title`) values (:title)");
+      $str->bindparam(":title",$title,PDO::PARAM_STR);
+      $out=$str->execute(); 
+      
+      
+      if($out){
+        $session->set("sucess","Data Added Successfly");
+        $request->header("../index.php");
+      }else{
+        $session->set("errors",$errors);
+        $request->header("../index.php");
+      }
+
+        
+    }else{
+        $session->set("errors",$errors);
+        $request->header("../index.php");
+
+    }
     
 }else{
     $request->header("../index.php");

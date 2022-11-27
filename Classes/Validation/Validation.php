@@ -18,8 +18,10 @@ class Validation{
 
           $error=$object->check($key , $value);
 
-          $this->errors[]=$error ;
+          if($error != false){
 
+          $this->errors[]=$error ;
+          }
         }
 
     }
