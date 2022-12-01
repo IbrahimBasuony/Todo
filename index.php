@@ -5,6 +5,20 @@ require_once 'App.php';
 <body>
     
     <div class="container my-3 ">    
+
+    <div class="container">
+<?php 
+require_once 'inc/errors.php';
+require_once 'inc/success.php';
+?>
+
+    </div>
+
+
+
+
+
+
         <div class="row d-flex justify-content-center">
                
                 <div class="container mb-5 d-flex justify-content-center">
@@ -48,9 +62,9 @@ require_once 'App.php';
                                 <h4 ><?php echo $todo['title'] ;  ?></h4>
                                 <h5><?php echo $todo['created_at'] ;  ?></h5>
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a href="#"class="btn btn-info p-1 text-white" >edit</a>
+                                    <a href="edit.php?id=<?php echo $todo['id']  ?>"class="btn btn-info p-1 text-white" >edit</a>
                                    
-                                    <a href="#"class="btn btn-info p-1 text-white" >doing</a>
+                                    <a href="handle/goto.php?name=doing&id=<?php echo $todo['id']  ?>"class="btn btn-info p-1 text-white" >doing</a>
                                 </div>
                             
                         </div>
@@ -89,7 +103,7 @@ require_once 'App.php';
                                 <h5><?php echo $todo['created_at'] ;  ?>t</h5>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a></a>
-                                    <a href="#"class="btn btn-success p-1 text-white" >Done</a>
+                                    <a href="handle/goto.php?name=done&id=<?php echo $todo['id'] ?>"class="btn btn-success p-1 text-white" >Done</a>
                                 </div>
                             
                         </div>
@@ -119,7 +133,7 @@ require_once 'App.php';
                             <?php endif; ?>
                   <?php  while($todo=$stm->fetch(PDO::FETCH_ASSOC)) :  ?>
                         <div class="alert alert-warning p-2">
-                                <a href="#" onclick="confirm('are your sure')"  class="remove-to-do text-dark d-flex justify-content-end " ><i class="fa fa-close" style="font-size:16px;"></i></a>                                                                
+                                <a href="handle/delete.php?id=<?php echo $todo['id']  ?>" onclick="confirm('are your sure')"  class="remove-to-do text-dark d-flex justify-content-end " ><i class="fa fa-close" style="font-size:16px;"></i></a>                                                                
                                 <h4 ><?php echo $todo['title'] ; ?></h4>
                                <h5><?php echo $todo['created_at'] ; ?></h5>
                                

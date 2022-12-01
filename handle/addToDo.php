@@ -20,10 +20,10 @@ if($request->hasPost("submit")){
       
       
       if($out){
-        $session->set("sucess","Data Added Successfly");
+        $session->set("success","Data Added Successfly");
         $request->header("../index.php");
       }else{
-        $session->set("errors",$errors);
+        $session->set("error","Error in Inserting");
         $request->header("../index.php");
       }
 

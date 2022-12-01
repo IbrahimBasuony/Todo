@@ -16,6 +16,10 @@ public function get($key){
   return  $_SESSION[$key] ;
 }
 
+public function hasGet($key){
+     return isset($_SESSION[$key])  ;
+   }
+
 public function unset($key){
      unset($_SESSION[$key]) ;
 }
